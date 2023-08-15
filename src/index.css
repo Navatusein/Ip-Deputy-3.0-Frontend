@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+}
+
+:where(.css-dev-only-do-not-override-wgldns).ant-pro-card .ant-pro-card-body {
+  padding-inline: 0 !important;
+  padding-block: 0 !important;
+}
