@@ -7,7 +7,7 @@ import {BaseQueryFn} from "@reduxjs/toolkit/query";
 
 axios.defaults.withCredentials = true;
 
-export const API_URL = "http://localhost:5015/api/frontend/";
+export const API_URL = "https://ipdeputy-beta.navatuseinlab.duckdns.org/api/frontend/";
 
 const api = axios.create({
   withCredentials: true,
@@ -38,6 +38,7 @@ api.interceptors.request.use(async (config) => {
         })
         .catch(error => {
           console.error(error);
+          console.log("Logout")
           store.dispatch(logout());
         });
     }

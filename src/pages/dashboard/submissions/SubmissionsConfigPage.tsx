@@ -2,7 +2,6 @@ import {FC, useState} from "react";
 import {Button, Card, Form, Input, Select, Space, Tag} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {ColumnsType} from "antd/es/table";
-import {ISubgroup} from "../../../models/ISubgroup.ts";
 import {submissionsConfigApi} from "../../../services/SubmissionsConfigsService.ts";
 import {ISubmissionsConfig} from "../../../models/ISubmissionsConfig.ts";
 import {subgroupApi} from "../../../services/SubgroupService.ts";
@@ -15,7 +14,7 @@ const {Option} = Select;
 const StudentsInformationPage: FC = () => {
   const [form] = Form.useForm();
 
-  const [selectedRow, setSelectedRow] = useState<ISubgroup>();
+  const [selectedRow, setSelectedRow] = useState<ISubmissionsConfig>();
 
   const submissionConfigsQuery = submissionsConfigApi.useFetchAllQuery();
   const subgroupQuery = subgroupApi.useFetchAllQuery();
@@ -44,7 +43,6 @@ const StudentsInformationPage: FC = () => {
       key: "subjectTypeId",
       render: (_, row) => {
         const subjectType = subjectTypeQuery.data?.find(x => x.id === row.subjectTypeId);
-
         return subjectType?.name;
       }
     },
@@ -52,21 +50,11 @@ const StudentsInformationPage: FC = () => {
       title: "Custom Name",
       dataIndex: "customName",
       key: "customName",
-      render: (_, row) => {
-        return row.customName === null ?
-          <Tag color="red">None</Tag> :
-          row.customName;
-      }
     },
     {
       title: "Custom Type",
       dataIndex: "customType",
       key: "customType",
-      render: (_, row) => {
-        return row.customType === null ?
-          <Tag color="red">None</Tag> :
-          row.customType;
-      }
     },
     {
       title: "For who",
@@ -99,9 +87,7 @@ const StudentsInformationPage: FC = () => {
   };
 
   const onFormSubmit = (result: ISubmissionsConfig) => {
-    return {...result, submissionWorks: result.submissionWorks.map((value) => {
-        return {id:0, name:value.name};
-      })}
+    return {...result, submissionWorks: result.submissionWorks.map(x => {return { id: x.id, name: x.name}})};
   };
 
   return (
@@ -120,7 +106,7 @@ const StudentsInformationPage: FC = () => {
         columns={columns}
         isModalRequired={true}
         alertMessage={"Submission config selected"}
-        deleteMessage={`Are you sure to delete ${selectedRow?.name} ?`}
+        deleteMessage={`Are you sure to delete ?`}
       >
         <Form.Item name="subjectId" label="Subject">
           <Select placeholder="Select subject">
@@ -158,12 +144,12 @@ const StudentsInformationPage: FC = () => {
                   Add work
                 </Button>
               </Form.Item>
-              {fields.map((field) => (
-                <Space key={field.key} align="baseline">
-                  <Form.Item {...field} name={[field.name, "name"]} label={`Work ${field.key + 1}`}>
+              {fields.map(({ key, name, ...restField }) => (
+                <Space key={key} align="baseline">
+                  <Form.Item {...restField} name={[name, "name"]} label={`Work ${key + 1}`}>
                     <Input/>
                   </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(field.name)}/>
+                  <MinusCircleOutlined onClick={() => remove(name)}/>
                 </Space>
               ))}
             </>

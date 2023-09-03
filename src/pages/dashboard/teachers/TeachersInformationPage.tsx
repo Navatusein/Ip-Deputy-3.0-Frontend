@@ -1,5 +1,5 @@
 import {FC, useState} from "react";
-import {Card, Form, Input, Tag} from "antd";
+import {Card, Form, Input} from "antd";
 import {ColumnsType} from "antd/es/table";
 import {ITeacher} from "../../../models/ITeacher.ts";
 import {teacherApi} from "../../../services/TeacherService.ts";
@@ -36,31 +36,16 @@ const StudentsInformationPage: FC = () => {
       title: "Contact Phone",
       dataIndex: "contactPhone",
       key: "contactPhone",
-      render: (_, row) => {
-        return row.contactPhone === null ?
-          <Tag color="red">None</Tag> :
-          row.contactPhone;
-      }
     },
     {
       title: "Telegram Nickname",
       dataIndex: "telegramNickname",
       key: "telegramNickname",
-      render: (_, row) => {
-        return row.telegramNickname === null ?
-          <Tag color="red">None</Tag> :
-          row.telegramNickname;
-      }
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      render: (_, row) => {
-        return row.email === null ?
-          <Tag color="red">None</Tag> :
-          row.email;
-      }
     },
     {
       title: "Fit Email",
@@ -108,7 +93,7 @@ const StudentsInformationPage: FC = () => {
         <Form.Item name="email" label="Email">
           <Input/>
         </Form.Item>
-        <Form.Item name="fitEmail" label="Fit Email" rules={[{required: true}]}>
+        <Form.Item name="fitEmail" label="Fit Email">
           <Input/>
         </Form.Item>
       </DataTable>

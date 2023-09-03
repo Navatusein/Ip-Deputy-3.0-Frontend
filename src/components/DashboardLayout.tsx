@@ -17,7 +17,7 @@ import { useMediaQuery } from 'react-responsive'
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const AppLayout: FC = () => {
+const DashboardLayout: FC = () => {
   const dispatcher = useAppDispatch();
   const {logout, } = userSlice.actions;
 
@@ -151,4 +151,4 @@ const AppLayout: FC = () => {
   );
 };
 
-export default AppLayout;
+export default DashboardLayout;

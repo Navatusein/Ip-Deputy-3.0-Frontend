@@ -26,5 +26,21 @@ export const authenticationApi = createApi({
         }
       },
     }),
+    loginBotUser: builder.mutation<IUser, number>({
+      query: (telegramId) => ({
+        url: '/authentication/login-bot',
+        method: 'POST',
+        params: {telegramId: telegramId}
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          await dispatch(setUser(data));
+        }
+        catch (error) {
+          await dispatch(logout());
+        }
+      },
+    }),
   }),
 });

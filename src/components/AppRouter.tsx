@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import AuthenticationPage from "../pages/AuthenticationPage.tsx";
 import StudentsInformationPage from "../pages/dashboard/students/StudentsInformationPage.tsx";
-import AppLayout from "./AppLayout.tsx";
+import DashboardLayout from "./DashboardLayout.tsx";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
 import HomePage from "../pages/dashboard/HomePage.tsx";
 import SchedulePage from "../pages/dashboard/subjects/SchedulePage.tsx";
@@ -11,6 +11,9 @@ import StudentsSubgroupsPage from "../pages/dashboard/students/SubgroupsInformat
 import TeachersInformationPage from "../pages/dashboard/teachers/TeachersInformationPage.tsx";
 import StudentsTelegramPage from "../pages/dashboard/students/TelegramInformationPage.tsx";
 import SubmissionsConfigPage from "../pages/dashboard/submissions/SubmissionsConfigPage.tsx";
+import SubmissionRegistrationPage from "../pages/bot/SubmissionRegistrationPage.tsx";
+import BotLayout from "./BotLayout.tsx";
+import SubmissionControlPage from "../pages/bot/SubmissionControlPage.tsx";
 
 const AppRouter: FC = () => {
   const {user} = useAppSelector(state => state.userReducer);
@@ -18,7 +21,7 @@ const AppRouter: FC = () => {
     <>
       <Routes>
         {user !== null ?
-          <Route element={<AppLayout/>}>
+          <Route element={<DashboardLayout/>}>
             <Route path="/*" element={<HomePage/>}/>
             <Route path="/students/information" element={<StudentsInformationPage/>}/>
             <Route path="/students/subgroups" element={<StudentsSubgroupsPage/>}/>
@@ -32,6 +35,10 @@ const AppRouter: FC = () => {
             <Route path="/*" element={<AuthenticationPage/>}/>
           </>
         }
+        <Route element={<BotLayout/>}>
+          <Route path="/bot/submission/register" element={<SubmissionRegistrationPage/>}/>
+          <Route path="/bot/submission/control" element={<SubmissionControlPage/>}/>
+        </Route>
       </Routes>
     </>
   );

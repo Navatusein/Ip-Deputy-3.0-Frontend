@@ -11,6 +11,7 @@ import {coupleTimeApi} from "../services/CoupleTimeService.ts";
 import {subjectTypeApi} from "../services/SubjectTypeService.ts";
 import {studentsTelegramApi} from "../services/StudentTelegramsService.ts";
 import {submissionsConfigApi} from "../services/SubmissionsConfigsService.ts";
+import {submissionStudentApi} from "../services/SubmissionStudentService.ts";
 
 const rootReducer = combineReducers({
   userReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   [subjectTypeApi.reducerPath]: subjectTypeApi.reducer,
   [studentsTelegramApi.reducerPath]: studentsTelegramApi.reducer,
   [submissionsConfigApi.reducerPath]: submissionsConfigApi.reducer,
+  [submissionStudentApi.reducerPath]: submissionStudentApi.reducer,
 })
 
 const middlewares = [
@@ -37,6 +39,7 @@ const middlewares = [
   subjectTypeApi.middleware,
   studentsTelegramApi.middleware,
   submissionsConfigApi.middleware,
+  submissionStudentApi.middleware,
 ]
 
 export const setupStore = () => {

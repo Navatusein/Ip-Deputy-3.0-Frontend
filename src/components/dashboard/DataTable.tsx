@@ -153,6 +153,8 @@ const DataTable: FC<IDataTableProps<any>> = (props) => {
     if (onFormSubmit)
       result = onFormSubmit(result);
 
+    console.log(result)
+
     action(result)
       .unwrap()
       .catch((error) => {

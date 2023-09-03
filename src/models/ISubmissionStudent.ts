@@ -9,6 +9,6 @@ export interface ISubmissionStudent {
   id: number;
   submissionWorkId: number;
   studentId: number;
-  submissionConfigId: number;
-  preferredPosition: PreferredPosition;
+  submissionsConfigId: number;
+  preferredPosition: number;
 }

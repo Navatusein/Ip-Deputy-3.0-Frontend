@@ -14,6 +14,14 @@ export const submissionsConfigApi = createApi({
       }),
       providesTags: () => ["SubmissionsConfig"]
     }),
+    fetchForStudent: build.query<ISubmissionsConfig[], number>({
+      query: (studentId) => ({
+        url: "/submissions-config/for-student",
+        method: "GET",
+        params: {studentId: studentId}
+      }),
+      providesTags: () => ["SubmissionsConfig"]
+    }),
     add: build.mutation<ISubmissionsConfig, ISubmissionsConfig>({
       query: (obj) => ({
         url: "/submissions-config",
