@@ -9,14 +9,14 @@ export const submissionStudentApi = createApi({
   endpoints: (build) => ({
     fetchAll: build.query<ISubmissionStudent[], void>({
       query: () => ({
-        url: "/submissions-student",
+        url: "/submission-student",
         method: "GET"
       }),
       providesTags: () => ["SubmissionStudent"]
     }),
     fetchByStudent: build.query<ISubmissionStudent[], number>({
       query: (studentId) => ({
-        url: "/submission-student",
+        url: "/submission-student/by-student",
         method: "GET",
         params: {studentId: studentId}
       }),

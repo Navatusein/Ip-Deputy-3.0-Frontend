@@ -115,7 +115,7 @@ const StudentsInformationPage: FC = () => {
         <Form.Item name="studentId" label="Student" rules={[{required: true}]}>
           <Select
             placeholder="Select student"
-            options={studentsQuery?.data?.map((value) => {
+            options={studentsQuery.data?.filter(x => !studentTelegramsQuery.data?.find(y => y.studentId == x.id)).map((value) => {
               return {value: value.id, label: `${value.surname} ${value.name}`}
             })}
           />

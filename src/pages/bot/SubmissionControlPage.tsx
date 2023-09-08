@@ -9,6 +9,7 @@ import {submissionsConfigApi} from "../../services/SubmissionsConfigsService.ts"
 import {ISubmissionsConfig} from "../../models/ISubmissionsConfig.ts";
 import {DeleteOutlined} from "@ant-design/icons";
 import {subgroupApi} from "../../services/SubgroupService.ts";
+import {ISubmissionStudent} from "../../models/ISubmissionStudent.ts";
 
 const SubmissionControlPage: FC = () => {
   const {isAuthorized, telegram, user} = useOutletContext<IBotLayoutContext>();
@@ -58,6 +59,20 @@ const SubmissionControlPage: FC = () => {
       });
   };
 
+  const onPreferredPositionChange = (value: number, data: ISubmissionStudent[] | undefined) => {
+    telegram.showConfirm(
+      "Бажаете змінити бажану позицію?",
+      () => {
+        update({...data![0], preferredPosition: value})
+          .unwrap()
+          .catch((error) => {
+            if (error.response) {
+              telegram.showAlert(error.message);
+            }
+          });
+      });
+  };
+
   return (
     <>
       <Card bordered={false}>
@@ -80,20 +95,6 @@ const SubmissionControlPage: FC = () => {
 
           let preferredPosition = data?.sort((a,b)=> b.id - a.id)[0].preferredPosition;
 
-          const onPreferredPositionChange = (value: number) => {
-            telegram.showConfirm(
-              "Бажаете змінити бажану позицію?",
-              () => {
-                update({...data![0], preferredPosition: value})
-                  .unwrap()
-                  .catch((error) => {
-                    if (error.response) {
-                      telegram.showAlert(error.message);
-                    }
-                  });
-              });
-          };
-
           return (
             <div key={submissionsConfig.id}>
               {index > 0 && <Divider/>}
@@ -105,8 +106,8 @@ const SubmissionControlPage: FC = () => {
                 <Select
                   style={{flexGrow: 1}}
                   placeholder="Бажана позиція"
-                  defaultValue={preferredPosition}
-                  onChange={onPreferredPositionChange}
+                  defaultValue={preferredPosition === undefined ? 1 : preferredPosition}
+                  onChange={value => {onPreferredPositionChange(value, data)}}
                   options={[
                     {value: 0, label: "На початку"},
                     {value: 1, label: "Без різниці"},
@@ -141,11 +142,3 @@ const SubmissionControlPage: FC = () => {
 };
 
 export default SubmissionControlPage;
-
-// const submissionConfig = submissionConfigsQuery.data?.find(x => x.id == item.submissionsConfigId);
-//
-// if (submissionConfig === undefined)
-//   return;
-//
-//
-//

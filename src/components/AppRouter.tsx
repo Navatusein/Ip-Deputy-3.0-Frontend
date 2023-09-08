@@ -14,6 +14,7 @@ import SubmissionsConfigPage from "../pages/dashboard/submissions/SubmissionsCon
 import SubmissionRegistrationPage from "../pages/bot/SubmissionRegistrationPage.tsx";
 import BotLayout from "./BotLayout.tsx";
 import SubmissionControlPage from "../pages/bot/SubmissionControlPage.tsx";
+import SubmissionsInformationPage from "../pages/dashboard/submissions/SubmissionsInformationPage.tsx";
 
 const AppRouter: FC = () => {
   const {user} = useAppSelector(state => state.userReducer);
@@ -30,6 +31,7 @@ const AppRouter: FC = () => {
             <Route path="/subjects/information" element={<SubjectsInformationPage/>}/>
             <Route path="/subjects/schedule" element={<SchedulePage/>}/>
             <Route path="/submissions/config" element={<SubmissionsConfigPage/>}/>
+            <Route path="/submissions/information" element={<SubmissionsInformationPage/>}/>
           </Route>:
           <>
             <Route path="/*" element={<AuthenticationPage/>}/>

@@ -141,7 +141,7 @@ const StudentsInformationPage: FC = () => {
         <Form.Item name="index" label="Index" rules={[{required: true}]}>
           <InputNumber min={1}/>
         </Form.Item>
-        <Form.Item name="subgroupId" label="Subgroup" rules={[{required: true}]}>
+        <Form.Item name="subgroupId" label="Subgroup">
           <Select
             placeholder="Select subgroup"
             options={subgroupQuery?.data?.map((value) => {

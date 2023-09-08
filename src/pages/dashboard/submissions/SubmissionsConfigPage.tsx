@@ -16,7 +16,7 @@ const StudentsInformationPage: FC = () => {
 
   const [selectedRow, setSelectedRow] = useState<ISubmissionsConfig>();
 
-  const submissionConfigsQuery = submissionsConfigApi.useFetchAllQuery();
+  const submissionsConfigsQuery = submissionsConfigApi.useFetchAllQuery();
   const subgroupQuery = subgroupApi.useFetchAllQuery();
   const subjectQuery = subjectApi.useFetchAllQuery();
   const subjectTypeQuery = subjectTypeApi.useFetchAllQuery();
@@ -33,7 +33,6 @@ const StudentsInformationPage: FC = () => {
       key: "subjectId",
       render: (_, row) => {
         const subject = subjectQuery.data?.find(x => x.id === row.subjectId);
-
         return subject?.name;
       }
     },
@@ -83,7 +82,7 @@ const StudentsInformationPage: FC = () => {
   ];
 
   const updateHandler = () => {
-    submissionConfigsQuery.refetch();
+    submissionsConfigsQuery.refetch();
   };
 
   const onFormSubmit = (result: ISubmissionsConfig) => {
@@ -101,8 +100,8 @@ const StudentsInformationPage: FC = () => {
         addMutation={add}
         updateMutation={update}
         removeMutation={remove}
-        data={submissionConfigsQuery.data}
-        dataIsLoading={submissionConfigsQuery.isLoading || subgroupQuery.isLoading || subjectQuery.isLoading || subjectTypeQuery.isLoading}
+        data={submissionsConfigsQuery.data}
+        dataIsLoading={submissionsConfigsQuery.isLoading || subgroupQuery.isLoading || subjectQuery.isLoading || subjectTypeQuery.isLoading}
         columns={columns}
         isModalRequired={true}
         alertMessage={"Submission config selected"}

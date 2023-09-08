@@ -28,11 +28,11 @@ api.interceptors.request.use(async (config) => {
   if (user != null) {
     const decodedToken: IJwtToken = jwt_decode(user.jwtToken);
 
-    if (decodedToken.exp * 1000 < Date.now() && decodedToken.refresh === 'true') {
+    if (decodedToken.exp * 1000 < Date.now() && decodedToken.refresh === 'True') {
       //TODO Remove log
       console.log("Refresh token");
 
-      await axios.post(API_URL + 'authentication/refresh', user)
+      await axios.post(API_URL + '/authentication/refresh', user)
         .then(response => {
           user = response.data;
           store.dispatch(setUser(user));

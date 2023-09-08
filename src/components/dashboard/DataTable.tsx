@@ -153,10 +153,11 @@ const DataTable: FC<IDataTableProps<any>> = (props) => {
     if (onFormSubmit)
       result = onFormSubmit(result);
 
-    console.log(result)
-
     action(result)
       .unwrap()
+      .then(() => {
+        setSelectedRow(undefined);
+      })
       .catch((error) => {
         if (error.response) {
           notification.error({
@@ -164,8 +165,6 @@ const DataTable: FC<IDataTableProps<any>> = (props) => {
           });
         }
       });
-
-    setSelectedRow(undefined);
   }
 
   return (
@@ -181,7 +180,7 @@ const DataTable: FC<IDataTableProps<any>> = (props) => {
               <Button icon={<EditOutlined/>} onClick={editHandler} disabled={selectedRow === undefined}>
                   Edit
               </Button>
-              <Button icon={<DeleteOutlined/>} onClick={deleteHandler} disabled={selectedRow === undefined}>
+              <Button icon={<DeleteOutlined/>} onClick={deleteHandler} danger disabled={selectedRow === undefined}>
                   Delete
               </Button>
             </>
