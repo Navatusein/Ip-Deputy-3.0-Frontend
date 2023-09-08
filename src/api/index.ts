@@ -7,7 +7,8 @@ import {BaseQueryFn} from "@reduxjs/toolkit/query";
 
 axios.defaults.withCredentials = true;
 
-export const API_URL = "https://ipdeputy-beta.navatuseinlab.duckdns.org/api/frontend/";
+// @ts-ignore
+export const API_URL = window["env"]["apiUrl"] || "localhost:9999";
 
 const api = axios.create({
   withCredentials: true,

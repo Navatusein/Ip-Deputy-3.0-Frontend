@@ -7,6 +7,13 @@ export const submissionStudentApi = createApi({
   baseQuery: axiosBaseQuery(),
   tagTypes: ["SubmissionStudent"],
   endpoints: (build) => ({
+    fetchAll: build.query<ISubmissionStudent[], void>({
+      query: () => ({
+        url: "/submissions-student",
+        method: "GET"
+      }),
+      providesTags: () => ["SubmissionStudent"]
+    }),
     fetchByStudent: build.query<ISubmissionStudent[], number>({
       query: (studentId) => ({
         url: "/submission-student",
